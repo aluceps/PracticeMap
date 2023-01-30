@@ -1,10 +1,12 @@
 package me.aluceps.practicemap
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.GoogleMapOptions
+import com.google.android.gms.maps.MapsInitializer
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
@@ -25,6 +27,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMap() {
+        MapsInitializer.initialize(applicationContext, MapsInitializer.Renderer.LATEST) { renderer ->
+            when (renderer) {
+                MapsInitializer.Renderer.LEGACY -> Log.d("MapsDemo", "The latest version of the renderer is used.")
+                MapsInitializer.Renderer.LATEST -> Log.d("MapsDemo", "The legacy version of the renderer is used.")
+            }
+        }
+
         val mapOptions = GoogleMapOptions()
             .mapType(GoogleMap.MAP_TYPE_NORMAL)
             .compassEnabled(false)
