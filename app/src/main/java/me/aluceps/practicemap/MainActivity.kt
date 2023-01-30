@@ -3,6 +3,8 @@ package me.aluceps.practicemap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.GoogleMapOptions
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
@@ -23,8 +25,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMap() {
+        val mapOptions = GoogleMapOptions()
+            .mapType(GoogleMap.MAP_TYPE_NORMAL)
+            .compassEnabled(false)
+            .rotateGesturesEnabled(false)
+            .tiltGesturesEnabled(false)
 
-        val mapFragment = SupportMapFragment.newInstance()
         val callback = OnMapReadyCallback {
             val tokyo = LatLng(35.6892864, 139.6899497)
             val zoom = 10f
@@ -32,6 +38,7 @@ class MainActivity : AppCompatActivity() {
             it.moveCamera(CameraUpdateFactory.newCameraPosition(CameraPosition.fromLatLngZoom(tokyo, zoom)))
         }
 
+        val mapFragment = SupportMapFragment.newInstance(mapOptions)
         mapFragment.getMapAsync(callback)
 
         supportFragmentManager.beginTransaction()
