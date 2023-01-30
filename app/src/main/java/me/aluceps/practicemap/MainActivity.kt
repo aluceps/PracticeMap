@@ -12,14 +12,18 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
-    val callback = OnMapReadyCallback {
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setupMap()
+    }
+
+    private fun setupMap() {
 
         val mapFragment = SupportMapFragment.newInstance()
+        val callback = OnMapReadyCallback {
+        }
+
         mapFragment.getMapAsync(callback)
 
         supportFragmentManager.beginTransaction()
